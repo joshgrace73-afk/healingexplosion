@@ -86,7 +86,7 @@ th { text-align: left; font-size: 11.5px; letter-spacing: .08em; text-transform:
 td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
 td.r, th.r { text-align: right; }
 .bar { display: flex; align-items: center; gap: 10px; min-width: 150px; }
-.bar .n { min-width: 2.6em; }
+.bar .n { min-width: 2.6em; white-space: nowrap; }
 .bar .track { flex: 1; height: 8px; background: rgba(255,255,255,.06); border-radius: 4px; overflow: hidden; }
 .bar .fill { height: 100%; border-radius: 4px; }
 
@@ -159,7 +159,7 @@ footer img { width: 28px; height: 28px; opacity: .7; }
 
     <div class="panel wide">
       <h2>Conditions brought for prayer <span class="scope" data-scope></span></h2>
-      <p class="note">Grouped by body system. Someone with several conditions counts once in each group. The healed rate counts only people who answered Yes or No.</p>
+      <p class="note">Grouped by body system. Someone with several conditions counts once in each group. The healed rate counts only people who answered Yes or No; the numbers in brackets show how many that is.</p>
       <div class="tablewrap">
         <table>
           <thead><tr><th>Condition group</th><th>Cases</th><th class="r">Said Yes</th><th class="r">Needs check-up</th><th>Healed rate</th></tr></thead>
@@ -328,7 +328,7 @@ function drawCats(V) {
     tr.appendChild(h('td', 'r', String(c.yes)));
     tr.appendChild(h('td', 'r', String(c.checkup)));
     const rate = c.answered ? c.yes / c.answered : null;
-    const b2 = h('td'); const w2 = h('div', 'bar'); w2.appendChild(h('span', 'n', rate == null ? '–' : fmtPct(rate)));
+    const b2 = h('td'); const w2 = h('div', 'bar'); w2.appendChild(h('span', 'n', rate == null ? '–' : `${fmtPct(rate)} (${c.yes} of ${c.answered})`));
     const t2 = h('div', 'track'); const f2 = h('div', 'fill'); f2.style.width = ((rate || 0) * 100) + '%'; f2.style.background = C.yes; t2.appendChild(f2); w2.appendChild(t2); b2.appendChild(w2); tr.appendChild(b2);
     tb.appendChild(tr);
   });
